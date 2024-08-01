@@ -5,7 +5,6 @@ app_name='accounts'
 
 urlpatterns = [
 path('register-customer/', register_customer, name='register-customer'),
-path('login/', login, name='login'),
+path('login/', login_user, name='login'),
 path('logout/', logout, name='logout'),
-
 ]

@@ -1,0 +1,43 @@
+{% extends 'accounts/base.html' %}
+
+{% load widget_tweaks %}
+
+ {% block heading %}
+
+Welcome to Ticket
+ 
+ {% endblock heading %} 
+
+ {% block content %}
+
+ <form id="login-form" class="form" action="" method="POST">
+    {% csrf_token %}
+    <h3 class="text-center text-info">Create ticket</h3>
+    <div class="form-group">
+        <label for="username"  class="text-info">Email:</label><br>
+        {% render_field form.email class="form-control" %}
+        {% comment %} <input type="email" name="username" id="username" class="form-control"> {% endcomment %}
+    </div>
+    <div class="form-group">
+        <label for="username"  class="text-info">Enter Password:</label><br>
+        {% render_field form.password1 class="form-control" %}
+        {% comment %} <input type="email" name="username" id="username" class="form-control"> {% endcomment %}
+    </div>
+    <div class="form-group">
+        <label for="username"  class="text-info">Confirm Password:</label><br>
+        {% render_field form.password2 class="form-control" %}
+        {% comment %} <input type="email" name="username" id="username" class="form-control"> {% endcomment %}
+    </div>
+
+    <button class="w-100 btn btn-lg btn-primary" type="submit">Sign Up</button>
+    {% comment %} <div class="form-group">
+        <label for="remember-me" class="text-info"><span>Remember me</span> <span><input id="remember-me" name="remember-me" type="checkbox"></span></label><br>
+        <input type="submit" name="submit" class="btn btn-info btn-md" value="submit">
+    </div> {% endcomment %}
+    <div id="register-link" class="text-right">
+       <small> Already have an account?<a href="{% url "accounts:login" %}" class="text-info">Sign Up</a></small> 
+    </div>
+</form>
+ 
+ 
+ {% endblock content %}
