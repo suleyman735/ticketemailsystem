@@ -4,7 +4,7 @@ from accounts.models import User
 # Create your views here.
 
 user = User()
-@login_required
+# @login_required
 def dashboard(request):
     # return render(request,'dashboard/customer_dashboard.html')
     user = request.user

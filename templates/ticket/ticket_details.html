@@ -1,0 +1,47 @@
+{% extends '../base.html' %}
+
+{% block content %}
+
+<div class="row p-5 mb-4 bg-light rounded-3">
+    <div class="col-md-8">
+        <div class="py-5">
+            <h1 class="display-6 fw-bold">{{ticket.ticket_title}}</h1>
+            <p class="">{{ticket.ticket_description}}</p>
+            <p class="card-text">
+                {% if ticket.status == 'Pending' %}
+                Status:<span class="badge bg-warning">Pending</span>
+                {% elif ticket.status == 'Active' %}
+                Status:<span class="badge bg-success">Active</span>
+                
+                {% elif ticket.status == 'Resolved' %}
+                Status:<span class="badge bg-danger">Resolved</span>
+
+                {% endif %}
+            </p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card shadow">
+            <div class="card-body">
+                <div class="py-5">
+                    <h2 class="display-6">Quick info</h2>
+                    <p>Quick information about the customer thatv you are supporting</p>
+                    <ul>
+                        <li> <b>Uniquie Id: </b>{{ticket.ticket_id}}</li>
+                        <li> <b>Customer: </b>{{ticket.customer}}</li>
+                        <li> <b>Assigned Engineer: </b>{{ticket.engineer}}</li>
+                        <li> <b>Created on: </b>{{ticket.created_on}}</li>
+                        <li> <b>Severity: </b>{{ticket.severity}}</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+{% endblock content %}
+
+
