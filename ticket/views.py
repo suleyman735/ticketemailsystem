@@ -3,9 +3,11 @@ import string
 from django.db import IntegrityError
 from django.shortcuts import render,redirect
 from django.contrib import messages
+from django.contrib.auth import get_user_model
 from .form import CreateTicketForm,AssignTicketForm
 from .models import Ticket
 
+User = get_user_model()
 
 def create_ticket(request):
     if request.method == 'POST':
@@ -38,16 +40,28 @@ def create_ticket(request):
 #     context = {'tickets':tickets}
 #     return render(request,'ticket/customer_tickets.html',context)
 
-# def cx can see all active tickets
+# def customer can see all active tickets
 def customer_active_tickets(request):
     tickets = Ticket.objects.filter(customer=request.user, is_resolved=False).order_by('-created_on')
     context = {'tickets':tickets}
     return render(request,'ticket/customer_active_tickets.html',context)
-# def cx can see all resolved tickets
+# def customer can see all resolved tickets
 def customer_resolved_tickets(request):
     tickets = Ticket.objects.filter(customer=request.user,is_resolved=True).order_by('-created_on')
     context = {'tickets':tickets}
     return render(request,'ticket/customer_resolved_tickets.html',context)
+
+
+# def engineer can see all active tickets
+def engineer_active_tickets(request):
+    tickets = Ticket.objects.filter(engineer=request.user, is_resolved=False).order_by('-created_on')
+    context = {'tickets':tickets}
+    return render(request,'ticket/engineer_active_tickets.html',context)
+# def engineer can see all resolved tickets
+def engineer_resolved_tickets(request):
+    tickets = Ticket.objects.filter(engineer=request.user,is_resolved=True).order_by('-created_on')
+    context = {'tickets':tickets}
+    return render(request,'ticket/engineer_resolved_tickets.html',context)
                    
         
 def assign_ticket(request,ticket_id):
@@ -57,15 +71,17 @@ def assign_ticket(request,ticket_id):
         if form.is_valid():
             var = form.save(commit=False)
             var.is_assigned_to_engineer = True
+            var.status = 'Active'
             var.save()
             messages.success(request, f'Ticket has been assigned to {var.engineer}')
-            return redirect('ticket-queue')
+            return redirect('ticket:ticket-queue')
         else:
             messages.warning(request,'Someting went wrong. Please check form input')
-            return redirect('assign-ticket')
+            return redirect('ticket:assign-ticket')
     else:
-        form =AssignTicketForm()
-        context = {'form':form}
+        form =AssignTicketForm(instance=ticket)
+        form.fields['engineer'].queryset = User.objects.filter(is_engineer = True)
+        context = {'form':form,'ticket':ticket}
         return render(request,'ticket/assign_ticket.html',context)
     
 def tickt_details(request,ticket_id):

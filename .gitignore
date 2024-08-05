@@ -50,6 +50,9 @@ coverage.xml
 .hypothesis/
 .pytest_cache/
 cover/
+ticket/migrations/
+dashboard/migrations/
+accounts/migrations/
 
 # Translations
 *.mo

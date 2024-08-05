@@ -9,16 +9,18 @@ from .forms import RegisterCustomerForm
 def register_customer(request):
     if request.method == 'POST':
         form = RegisterCustomerForm(request.POST)
+        print(form)
         if form.is_valid():
             var = form.save(commit=False)
             var.is_customer = True
             var.username = var.email
             var.save()
             messages.success(request,'Account created,Please login')
-            return redirect('login')
+            return redirect('accounts:login')
         else:
+            print(form.errors)
             messages.warning(request,'Something went wrong. Please check formerror')
-            return redirect('register-customer')
+            return redirect('accounts:register-customer')
     else:
         form = RegisterCustomerForm()
         context = {'form':form}
@@ -33,13 +35,14 @@ def login_user(request):
         
         user = authenticate(request,username=username,password=password)
         
-        if user is not None and user.is_active:
-            login(request, user)
+
+        if user:
+            login(request,user)
             return redirect('dashboard')
         else:
             print('Something went wrong. Please check form error')
             messages.warning(request,'Something went wrong. Please check form error')
-            return redirect('login')
+            return redirect('accounts:login')
     else:
         return render(request,'accounts/login.html')
     

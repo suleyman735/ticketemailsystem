@@ -4,11 +4,18 @@ from accounts.models import User
 # Create your views here.
 
 user = User()
-# @login_required
+@login_required
 def dashboard(request):
     # return render(request,'dashboard/customer_dashboard.html')
     user = request.user
     if user.is_customer:
         return render(request,'dashboard/customer_dashboard.html')
-    else:
-        return render(request,'accounts/login.html')
+    elif user.is_engineer:
+        return render(request,'dashboard/engineer_dashboard.html')
+    elif user.is_superuser:
+        return render(request,'dashboard/admin_dashboard.html')
+    
+        
+        
+    # else:
+    #     return render(request,'accounts/login.html')
