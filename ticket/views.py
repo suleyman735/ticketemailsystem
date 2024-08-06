@@ -3,9 +3,12 @@ import string
 from django.db import IntegrityError
 from django.shortcuts import render,redirect
 from django.contrib import messages
+from django.core.mail import send_mail
 from django.contrib.auth import get_user_model
 from .form import CreateTicketForm,AssignTicketForm
 from .models import Ticket
+from django.core.mail import EmailMessage
+from django.conf import settings
 
 User = get_user_model()
 
@@ -19,7 +22,14 @@ def create_ticket(request):
                 id = ''.join(random.choices(string.digits,k=6))
                 try:
                     var.ticket_id = id
-                    var.save()          
+                    var.save()    
+              
+                    # send email function    
+                    # subject = f'{var.ticket_title} {var.ticket_id}' 
+                    # message = 'Thank you for creating a ticket , we will assign an engineer soon' 
+                    # from_email = f'{var.ticket_title} {var.ticket_id}<{settings.EMAIL_HOST_USER}>'
+                    # recipient_list = [request.user.email]
+                    # send_mail(subject,message,from_email,recipient_list)
                     messages.success(request,"Your ticket has been submitted, A support engineer would reach out soon")
                     return redirect('ticket:customer-active-tickets')
                    
@@ -95,7 +105,17 @@ def ticket_queue(request):
     context = {'ticket':ticket}
     return render(request,'ticket/ticket_queue.html',context)
 
-
+def resolve_ticket(request,ticket_id):
+    ticket = Ticket.objects.get(ticket_id=ticket_id)
+    if request.method == 'POST':
+        rs = request.POST.get('rs')
+        ticket.resolution_steps = rs
+        ticket.is_resolved = True
+        ticket.status = 'Resolved'
+        ticket.save()
+        messages.success(request,'STicket is now resolved and closed')
+        return redirect('dashboard')
+        
 
             
     

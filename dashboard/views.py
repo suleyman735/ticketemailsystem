@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from accounts.models import User
+from ticket.models import Ticket
 # Create your views here.
 
 user = User()
@@ -9,9 +10,17 @@ def dashboard(request):
     # return render(request,'dashboard/customer_dashboard.html')
     user = request.user
     if user.is_customer:
-        return render(request,'dashboard/customer_dashboard.html')
+        tickets = Ticket.objects.filter(customer= user)
+        active_tickets = Ticket.objects.filter(customer= user,is_resolved =False).count
+        closed_tickets = Ticket.objects.filter(customer= user,is_resolved =True).count
+        context = {'tickets':tickets,'active_tickets':active_tickets,'closed_tickets':closed_tickets}
+        return render(request,'dashboard/customer_dashboard.html',context)
     elif user.is_engineer:
-        return render(request,'dashboard/engineer_dashboard.html')
+        tickets = Ticket.objects.filter(engineer= user)
+        active_tickets = Ticket.objects.filter(engineer= user,is_resolved =False).count
+        closed_tickets = Ticket.objects.filter(engineer= user,is_resolved =True).count
+        context = {'tickets':tickets,'active_tickets':active_tickets,'closed_tickets':closed_tickets}
+        return render(request,'dashboard/engineer_dashboard.html',context)
     elif user.is_superuser:
         return render(request,'dashboard/admin_dashboard.html')
     

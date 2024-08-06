@@ -10,5 +10,42 @@ Engineer Dashboard
         <a href="{% url "ticket:engineer-active-tickets" %}">View Active Tickets</a>
     </div>
 </div>
+
+<div class="row">
+    <div class="col">
+      <div class="p-5 mb-4 bg-light rounded-3">
+        <div class="container-fluid py-5">
+          <h1 class="display-5 fw-bold">
+           Actve Tickets <br> {{ active_tickets }}
+
+          </h1>
+        </div>
+
+      </div>
+   
+    </div>
+    <div class="col">
+      <div class="p-5 mb-4 bg-light rounded-3">
+        <div class="container-fluid py-5">
+          <h1 class="display-5 fw-bold">
+            Closed Tickets <br> {{closed_tickets}}
+
+          </h1>
+        </div>
+
+      </div>
+    </div>
+    <div class="col">
+      <div class="p-5 mb-4 bg-light rounded-3">
+        <div class="container-fluid py-5">
+          <h1 class="display-5 fw-bold">
+            Totall Tickets <br> {{tickets.count}}
+
+          </h1>
+        </div>
+
+      </div>
+    </div>
+  </div>
 {% endblock content %}
 

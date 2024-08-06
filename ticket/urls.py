@@ -13,4 +13,5 @@ path('engineer-resolved-tickets/', engineer_resolved_tickets, name='engineer-res
 path('assign-ticket/<str:ticket_id>/', assign_ticket, name='assign-ticket'),
 path('ticket-details/<str:ticket_id>/', tickt_details, name='ticket-details'),
 path('ticket-queue/', ticket_queue, name='ticket-queue'),
+path('resolve-ticket/<str:ticket_id>/', resolve_ticket, name='resolve-ticket'),
 ]
