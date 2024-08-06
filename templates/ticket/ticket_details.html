@@ -78,15 +78,15 @@
           {% csrf_token %}
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          {% comment %} <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
-          </button>
+          </button> {% endcomment %}
         </div>
   
-        <div class="modal-footer">
+        {% comment %} <div class="modal-footer"> {% endcomment %}
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           <button type="button" class="btn btn-primary" type="submit">Save changes</button>
-        </div>
+        {% comment %} </div> {% endcomment %}
         </form>
       </div>
     </div>

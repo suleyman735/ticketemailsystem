@@ -106,10 +106,12 @@ def ticket_queue(request):
     return render(request,'ticket/ticket_queue.html',context)
 
 def resolve_ticket(request,ticket_id):
+    print('tikxcskm')
     ticket = Ticket.objects.get(ticket_id=ticket_id)
     if request.method == 'POST':
-        rs = request.POST.get('rs')
-        ticket.resolution_steps = rs
+        print('tikxcskm')
+        # rs = request.POST.get('rs')
+        # ticket.resolution_steps = rs
         ticket.is_resolved = True
         ticket.status = 'Resolved'
         ticket.save()
