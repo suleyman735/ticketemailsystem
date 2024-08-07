@@ -50,5 +50,5 @@ def login_user(request):
 def logout_user(request):
     logout(request)
     messages.success(request,'Active session ended. Log in to continue')
-    return redirect ('login')
+    return redirect ('accounts:login')
     

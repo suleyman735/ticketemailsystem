@@ -10,6 +10,175 @@
     <title>Login</title>
 </head>
 <body>
+
+
+<!-- Header -->
+<nav id="top-nav" class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="#">Admin Panel</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
+                        {% if request.user.is_authenticated %}
+                         <i class="glyphicon glyphicon-user"></i> {{request.user.email}}
+                         {% endif %}
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        {% comment %} <a class="dropdown-item" href="#">My Profile</a> {% endcomment %}
+                        <a class="dropdown-item" href="{% url "accounts:logout" %}"><i class="glyphicon glyphicon-lock"></i> Logout</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- /Header -->
+
+<!-- Main -->
+<div class="container">
+    <!-- upper section -->
+    <div class="row">
+        <div class="col-md-3">
+            <!-- left -->
+            {% comment %} <a href="#"> {% endcomment %}
+                <strong><i class="glyphicon glyphicon-briefcase"></i> Toolbox</strong>
+            {% comment %} </a> {% endcomment %}
+            <hr>
+            <ul class="nav flex-column nav-pills">
+                <li class="nav-item"><a class="nav-link" href="{% url "ticket:customer-active-tickets" %}"><i class="glyphicon glyphicon-flash"></i> All ticket - 5</a></li>
+                 <li class="nav-item"><a class="nav-link" href="#"><i class="glyphicon glyphicon-link"></i> Active tickets - 3</a></li>
+                <li class="nav-item"><a class="nav-link" href="#"><i class="glyphicon glyphicon-list-alt"></i>Resolved ticket - 2 </a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url "ticket:ticket-queue" %}"><i class="glyphicon glyphicon-book"></i> Queue tickets - 1</a></li>
+                {% comment %}<li class="nav-item"><a class="nav-link" href="#"><i class="glyphicon glyphicon-briefcase"></i> Tools</a></li>
+                <li class="nav-item"><a class="nav-link" href="#"><i class="glyphicon glyphicon-time"></i> Real-time</a></li>
+                <li class="nav-item"><a class="nav-link" href="#"><i class="glyphicon glyphicon-plus"></i> Advanced..</a></li> {% endcomment %}
+            </ul>
+            <hr>
+        </div>
+        <!-- /span-3 -->
+        <div class="col-md-9">
+            <!-- column 2 -->
+            <a href="#"><strong><i class="glyphicon glyphicon-dashboard"></i> My Dashboard</strong></a>
+            <hr>
+            <div class="row">
+                <!-- center left-->
+                <div class="col-md-7">
+                    <div class="alert alert-info">Inbox Messages <span class="badge badge-pill badge-primary float-right">3</span></div>
+                    <hr>
+                    <div class="card">
+                        <div class="card-header"><h4>Processing Status</h4></div>
+                        <div class="card-body">
+                            <small>Complete</small>
+                            <div class="progress mb-2">
+                                <div class="progress-bar bg-success" role="progressbar" style="width: 72%" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100">72%</div>
+                            </div>
+                            <small>In Progress</small>
+                            <div class="progress mb-2">
+                                <div class="progress-bar bg-info" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">20%</div>
+                            </div>
+                            <small>At Risk</small>
+                            <div class="progress mb-2">
+                                <div class="progress-bar bg-danger" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">80%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--/col-->
+                <!--center-right-->
+                <div class="col-md-5">
+                    <ul class="nav nav-pills nav-justified">
+                        <li class="nav-item"><a class="nav-link" href="#"><i class="glyphicon glyphicon-cog"></i></a></li>
+                        <li class="nav-item"><a class="nav-link" href="#"><i class="glyphicon glyphicon-heart"></i></a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown">
+                                <i class="glyphicon glyphicon-comment"></i><span class="badge badge-pill badge-danger">3</span>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                                <a class="dropdown-item" href="#">1. Is there a way..</a>
+                                <a class="dropdown-item" href="#">2. Hello, admin. I would..</a>
+                                <a class="dropdown-item" href="#"><strong>All messages</strong></a>
+                            </div>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="#"><i class="glyphicon glyphicon-user"></i></a></li>
+                        <li class="nav-item"><a class="nav-link" title="Add Widget" data-toggle="modal" href="#addWidgetModal"><span class="glyphicon glyphicon-plus-sign"></span></a></li>
+                    </ul>
+                    <hr>
+                    <p>
+                        This is a responsive dashboard-style layout that uses <a href="http://www.getbootstrap.com">Bootstrap 4</a>. You can use this template as a starting point to create something more unique.
+                    </p>
+                    <hr>
+                    <div class="btn-group btn-group-justified">
+                        <a href="#" class="btn btn-info col-3">
+                            <i class="glyphicon glyphicon-plus"></i><br> Service
+                        </a>
+                        <a href="#" class="btn btn-info col-3">
+                            <i class="glyphicon glyphicon-cloud"></i><br> Cloud
+                        </a>
+                        <a href="#" class="btn btn-info col-3">
+                            <i class="glyphicon glyphicon-cog"></i><br> Tools
+                        </a>
+                        <a href="#" class="btn btn-info col-3">
+                            <i class="glyphicon glyphicon-question-sign"></i><br> Help
+                        </a>
+                    </div>
+                </div>
+                <!--/col-span-6-->
+            </div>
+            <!--/row-->
+        </div>
+        <!--/col-span-9-->
+    </div>
+    <!--/row-->
+    <!-- /upper section -->
+</div>
+<!--/container-->
+
+
+
+
+
+
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Dropdown
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="{% url "ticket:customer-active-tickets" %}">Active tickets</a>
+                <a class="dropdown-item" href="#">Resolved tickets</a>
+     
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Features</a>
+            </li>
+             {% if request.user.is_authenticated %}
+             <li class="nav-item">
+              <a class="nav-link" href="">{{request.user.email}}</a>
+            </li> 
+            {% endif %} 
+
+       
+          </ul>
+          <a class="btn btn-warning btn-sm" href="{% url "accounts:logout" %}">Logout</a>
+        </div>
+      </nav>
+
     <div class="container mt-5">
         {% if messages %}
         {% for message in messages  %}

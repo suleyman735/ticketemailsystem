@@ -10,7 +10,17 @@
     <title>Login</title>
 </head>
 <body>
-    <div id="login">
+    <div class="principal-container">
+        <div class="container bootstrap snippets bootdey">
+            <div class="row">
+                <div class="col-md-4 img-content">
+                    <img class="img-home img-thumbnail" src="https://bootdey.com/img/Content/avatar/avatar7.png">
+                </div>
+                {% block content %}{% endblock content %}
+            </div> 
+        </div>
+    </div>
+    {% comment %} <div id="login">
         <h3 class="text-center text-white pt-5">Login form</h3>
         <div class="container">
             <div id="login-row" class="row justify-content-center align-items-center">
@@ -21,7 +31,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> {% endcomment %}
 </body>
 
 
