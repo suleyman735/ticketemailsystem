@@ -7,6 +7,7 @@ urlpatterns = [
 path('create-ticket/', create_ticket, name='create-ticket'),
 # path('customer-tickets/', customer_tickets, name='customer-tickets'),
 path('customer-active-tickets/', customer_active_tickets, name='customer-active-tickets'),
+path('admin-tickets/', admin_tickets, name='admin-tickets'),
 path('customer-resolved-tickets/', customer_resolved_tickets, name='customer-resolved-tickets'),
 path('engineer-active-tickets/', engineer_active_tickets, name='engineer-active-tickets'),
 path('engineer-resolved-tickets/', engineer_resolved_tickets, name='engineer-resolved-tickets'),

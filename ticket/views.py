@@ -49,7 +49,10 @@ def create_ticket(request):
 #     tickets = Ticket.objects.filter(customer=request.user).order_by('-created_on')
 #     context = {'tickets':tickets}
 #     return render(request,'ticket/customer_tickets.html',context)
-
+def admin_tickets(request):
+    tickets = Ticket.objects.all().order_by('-created_on')
+    context = {'tickets':tickets}
+    return render(request,'ticket/admin_tickets.html',context)
 # def customer can see all active tickets
 def customer_active_tickets(request):
     tickets = Ticket.objects.filter(customer=request.user, is_resolved=False).order_by('-created_on')

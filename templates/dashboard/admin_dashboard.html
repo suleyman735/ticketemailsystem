@@ -1,7 +1,119 @@
 {% extends '../base.html' %}
-
+{% load templatetags %}
 {% block content %}
-<div class="p-5 mb-4 bg-light rounded-3">
+
+
+<div class="container">
+    <!-- upper section -->
+    <div class="row">
+        <div class="col-md-3">
+            <!-- left -->
+            <a href="#">
+                <strong><i class="glyphicon glyphicon-briefcase"></i> Toolbox</strong>
+            </a>
+            <hr>
+            <ul class="nav flex-column nav-pills">
+                <li class="nav-item"><a class="nav-link" href="{% url "ticket:admin-tickets" %}"><i class="glyphicon glyphicon-flash"></i> All ticket - {{tickets.count }}</a></li>
+                 <li class="nav-item"><a class="nav-link" href="#"><i class="glyphicon glyphicon-link"></i> Active tickets - {{active_tickets}}</a></li>
+                <li class="nav-item"><a class="nav-link" href="#"><i class="glyphicon glyphicon-list-alt"></i>Resolved ticket - {{closed_tickets}} </a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url "ticket:ticket-queue" %}"><i class="glyphicon glyphicon-book"></i> Queue tickets - {{ticket_queue.count}}</a></li>
+                {% comment %}<li class="nav-item"><a class="nav-link" href="#"><i class="glyphicon glyphicon-briefcase"></i> Tools</a></li>
+                <li class="nav-item"><a class="nav-link" href="#"><i class="glyphicon glyphicon-time"></i> Real-time</a></li>
+                <li class="nav-item"><a class="nav-link" href="#"><i class="glyphicon glyphicon-plus"></i> Advanced..</a></li> {% endcomment %}
+            </ul>
+            <hr>
+        </div>
+        <!-- /span-3 -->
+        <div class="col-md-9">
+            <!-- column 2 -->
+            <a href="#"><strong><i class="glyphicon glyphicon-dashboard"></i> My Dashboard</strong></a>
+            {% comment %} <hr> {% endcomment %}
+            <div class="row">
+                <!-- center left-->
+               
+                <div class="col-md-7">
+                    {% comment %} <div class="alert alert-info">Inbox Messages <span class="badge badge-pill badge-primary float-right">3</span></div> {% endcomment %}
+                    <hr>
+                    <div class="card">
+                        <div class="card-header"><h4>Processing Status</h4></div>
+                      
+                        {% comment %} {{active_tickets }}
+                        {{closed_tickets }} {% endcomment %}
+                        
+                        <div class="card-body">
+                            <small>Complete</small>
+                              <!-- Call the custom template tag here -->
+                    {% calculate_active  active_tickets closed_tickets as result %}
+                
+                            <div class="progress mb-2">
+                                <div class="progress-bar bg-success" role="progressbar" style="width: {{ result }}%" aria-valuenow="{{ result }}" aria-valuemin="0" aria-valuemax="100">{{ result }}%</div>
+                            </div>
+                            <small>In Closed</small>
+                            <div class="progress mb-2">
+                                {% calculate_active closed_tickets active_tickets  as result %}
+                                <div class="progress-bar bg-info" role="progressbar" style="width: {{ result }}%" aria-valuenow="{{ result }}" aria-valuemin="0" aria-valuemax="100">{{ result }}</div>
+                            </div>
+                            {% comment %} <small>At Total</small>
+                            <div class="progress mb-2">
+                                <div class="progress-bar bg-danger" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">80%</div>
+                            </div> {% endcomment %}
+                        </div>
+                    </div>
+                </div> 
+                <!--/col-->
+                <!--center-right-->
+                {% comment %} <div class="col-md-5">
+                    <ul class="nav nav-pills nav-justified">
+                        <li class="nav-item"><a class="nav-link" href="#"><i class="glyphicon glyphicon-cog"></i></a></li>
+                        <li class="nav-item"><a class="nav-link" href="#"><i class="glyphicon glyphicon-heart"></i></a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown">
+                                <i class="glyphicon glyphicon-comment"></i><span class="badge badge-pill badge-danger">3</span>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                                <a class="dropdown-item" href="#">1. Is there a way..</a>
+                                <a class="dropdown-item" href="#">2. Hello, admin. I would..</a>
+                                <a class="dropdown-item" href="#"><strong>All messages</strong></a>
+                            </div>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="#"><i class="glyphicon glyphicon-user"></i></a></li>
+                        <li class="nav-item"><a class="nav-link" title="Add Widget" data-toggle="modal" href="#addWidgetModal"><span class="glyphicon glyphicon-plus-sign"></span></a></li>
+                    </ul>
+                    <hr>
+                    <p>
+                        This is a responsive dashboard-style layout that uses <a href="http://www.getbootstrap.com">Bootstrap 4</a>. You can use this template as a starting point to create something more unique.
+                    </p>
+                    <hr>
+                    <div class="btn-group btn-group-justified">
+                        <a href="#" class="btn btn-info col-3">
+                            <i class="glyphicon glyphicon-plus"></i><br> Service
+                        </a>
+                        <a href="#" class="btn btn-info col-3">
+                            <i class="glyphicon glyphicon-cloud"></i><br> Cloud
+                        </a>
+                        <a href="#" class="btn btn-info col-3">
+                            <i class="glyphicon glyphicon-cog"></i><br> Tools
+                        </a>
+                        <a href="#" class="btn btn-info col-3">
+                            <i class="glyphicon glyphicon-question-sign"></i><br> Help
+                        </a>
+                    </div>
+                </div> {% endcomment %}
+                <!--/col-span-6-->
+            </div>
+            <!--/row-->
+        </div>
+        <!--/col-span-9-->
+    </div>
+    <!--/row-->
+    <!-- /upper section -->
+</div>
+
+
+
+
+
+{% comment %} <div class="p-5 mb-4 bg-light rounded-3">
     <div class="container-fluid py-5">
         <h1 class="display-5 fw-bold">
 Admin Dashboard
@@ -9,7 +121,7 @@ Admin Dashboard
         <p class="col-md-8 fs-4"> using </p>
         <a href="{% url "ticket:ticket-queue" %}">View Ticket Queue</a>
     </div>
-</div>
+</div> {% endcomment %}
 
 
 

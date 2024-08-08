@@ -22,13 +22,16 @@ def dashboard(request):
         context = {'tickets':tickets,'active_tickets':active_tickets,'closed_tickets':closed_tickets}
         return render(request,'dashboard/engineer_dashboard.html',context)
     elif user.is_superuser:
+        
         tickets = Ticket.objects.all()
+        print(tickets)
         active_tickets = Ticket.objects.filter(customer= user,is_resolved =False).count
         closed_tickets = Ticket.objects.filter(customer= user,is_resolved =True).count
-        context = {'tickets':tickets,'active_tickets':active_tickets,'closed_tickets':closed_tickets,'tickets':tickets}
-        return render(request,'dashboard/admin_dashboard.html')
+        ticket_queue= Ticket.objects.filter(is_assigned_to_engineer = False)
+        context = {'tickets':tickets,'active_tickets':active_tickets,'closed_tickets':closed_tickets,'tickets':tickets,'ticket_queue':ticket_queue}
+        return render(request,'dashboard/admin_dashboard.html',context)
     
-        
+
         
     # else:
     #     return render(request,'accounts/login.html')
