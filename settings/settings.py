@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'ticket',
     
     'widget_tweaks',
+    'ckeditor',
+
     
 ]
 
@@ -55,6 +57,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
 ]
 
 ROOT_URLCONF = 'settings.urls'
@@ -127,8 +130,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR,'static')]
+# Define where collected static files will go
+STATIC_ROOT = BASE_DIR / 'static'
+
+STATIC_URL = '/static/'
+# STATICFILES_DIRS = [os.path.join(BASE_DIR,'static')]
+# STATICFILES_DIRS = [BASE_DIR / 'staticfiles']
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -145,3 +153,13 @@ EMAIL_HOST_USER = 'admin@suryadanza.com'
 EMAIL_HOST_PASSWORD = 'Surya@2023'
 EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
+
+
+
+# CKEDITOR_CONFIGS = {
+#     'default': {
+#         'toolbar': 'full',
+#         'height': 700,
+#         'width': '4',
+#     },
+# }

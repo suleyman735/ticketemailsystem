@@ -1,0 +1,215 @@
+{% extends '../base.html' %}
+{% load static %}
+{% block content %}
+{% load widget_tweaks %}
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+    	      <div class="card">
+           <div class="card-body">
+
+        <div class="row">
+            <!-- Left sidebar -->
+
+            <!-- End Left sidebar -->
+                    
+        <!-- Right Sidebar -->
+        <div class="col-lg-9 col-md-8">
+
+            <div class="card shadow-none mt-3 border border-light">
+               <div class="card-body">
+
+
+                {% comment %} //////////// {% endcomment %}
+
+                <div class="panel">
+                    <div class="panel-heading">
+                        <div class="media">
+                            {% comment %} <a href="mail-compose.html" class="btn btn-danger pull-right rounded"><i class="fa fa-share"></i></a> {% endcomment %}
+                            {% comment %} <a class="pull-left" href="#">
+                                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Rebecca Cabean" class="img-circle avatar">
+                            </a> {% endcomment %}
+                            <div class="media-body">
+                                <h4 class="media-heading">Rebecca Cabean <small>(Sales Manager)</small></h4>
+                                <small>Thursday 5th July 2014-via Intercom</small>
+                            </div>
+                        </div>
+                    </div><!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <p class="lead">
+                            RE : Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                        </p>
+               
+            
+                    </div><!-- /.panel-body -->
+                </div><!-- /.panel -->
+                <hr/>
+                <div class="panel">
+                    <div class="panel-heading1">
+                        <div class="media">
+                            {% comment %} <a class="pull-left" href="#">
+                                <img src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="sarah tingting" class="img-circle avatar">
+                            </a> {% endcomment %}
+                            <div class="media-body">
+                                <h4 class="media-heading">Sarah Tingting</h4>
+                                <small>Thursday 5th July 2014-via Intercom</small>
+                            </div>
+                        </div>
+                    </div><!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <p class="lead">
+                            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                        </p>
+                
+                    </div><!-- /.panel-body -->
+                </div>
+
+                <div class="col-md-12">
+
+
+
+
+                    <div class="card card-primary card-outline">
+
+                        <form action="{% url 'ticket:engineer-email' ticket_id=210154 %}" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <button type="submit">Send</button>
+                        </form>
+
+
+                      <div class="card-header">
+                        {% comment %} <h3 class="card-title">Comspose New Message</h3> {% endcomment %}
+                      </div>
+                      <!-- /.card-header -->
+                      <div class="card-body">
+                        {% comment %} <div class="form-group">
+                          <input class="form-control" placeholder="To:">
+                        </div> {% endcomment %}
+                        <div class="form-group">
+                          {% comment %} <input class="form-control" placeholder="Subject:"> {% endcomment %}
+                        </div>
+                        {% comment %} {{ form.as_p }}   {% endcomment %}
+            
+                        {% comment %} <div class="form-group">
+                          <div class="btn btn-default btn-file">
+                            <i class="fas fa-paperclip"></i> Attachment
+                            <input type="file" name="attachment">
+                          </div>
+                          <p class="help-block">Max. 32MB</p>
+                        </div> {% endcomment %}
+                      </div>
+                      <!-- /.card-body -->
+                      <div class="card-footer">
+                        <div class="float-right">
+                          {% comment %} <button type="button" class="btn btn-default"><i class="fas fa-pencil-alt"></i> Draft</button> {% endcomment %}
+                          <button type="submit" class="btn btn-primary"><i class="far fa-envelope"></i> Send</button>
+                        </div>
+                        {% comment %} <button type="reset" class="btn btn-default"><i class="fas fa-times"></i> Discard</button> {% endcomment %}
+                      </div>
+                      <!-- /.card-footer -->
+                    </div>
+                    <!-- /.card -->
+                  </div>
+     
+      
+            </div> <!-- card -->
+        </div> <!-- end Col-9 -->
+                    
+                    </div><!-- End row -->
+
+             </div>
+                    </div>
+        </div>
+      </div><!-- End row -->
+
+    </div>
+
+
+
+
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+
+
+ <style>
+
+
+
+    body{margin-top:20px;
+        background:#eee;
+        }
+        
+        /* ========================================================================
+         * MESSAGES
+         * ======================================================================== */
+        .message form {
+          padding: 6px 15px;
+          background-color: #FAFAFA;
+          border-bottom: 1px solid #E6EBED;
+        }
+        .message form .has-icon .form-control-icon {
+          position: absolute;
+          z-index: 5;
+          top: 0;
+          right: 0;
+          width: 34px;
+          line-height: 33px;
+          text-align: center;
+          color: #777;
+        }
+        .message > a {
+          position: relative;
+        }
+        .message .indicator {
+          text-align: center;
+        }
+        .message .indicator .spinner {
+          left: 26%;
+          width: 200px;
+          font-size: 13px;
+          line-height: 17px;
+          color: #999;
+        }
+
+
+        .message-wrapper .message-sideright .panel .panel-heading {
+          border-bottom: none;
+          
+        }
+        .panel .panel-heading1{
+
+            text-align: end;
+
+        }
+        .panel {
+          background-color: transparent !important;
+          -moz-box-shadow: none !important;
+          -webkit-box-shadow: none !important;
+          box-shadow: none !important;
+        }
+         .panel .panel-heading, .panel .panel-body {
+          background-color: transparent !important;
+        }
+         .media .media-body {
+          font-weight: 300;
+        }
+         .media .media-heading {
+          margin-bottom: 0px;
+        }
+        .media small {
+          color: #999999;
+          font-weight: 400;
+        }
+        
+
+        .avatar{
+            width:50px;
+            height:50px;
+        }
+</style> 
+<script src="{% static 'ckeditor/ckeditor.js' %}"></script>
+    {% endblock content %}

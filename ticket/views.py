@@ -5,10 +5,14 @@ from django.shortcuts import render,redirect
 from django.contrib import messages
 from django.core.mail import send_mail
 from django.contrib.auth import get_user_model
-from .form import CreateTicketForm,AssignTicketForm
-from .models import Ticket
+from .form import CreateTicketForm,AssignTicketForm,MessageForm
+from .models import Ticket,Message
 from django.core.mail import EmailMessage
 from django.conf import settings
+from django.shortcuts import get_object_or_404
+from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
+from django.core.mail import EmailMessage
 
 User = get_user_model()
 
@@ -121,7 +125,100 @@ def resolve_ticket(request,ticket_id):
         messages.success(request,'STicket is now resolved and closed')
         return redirect('dashboard')
         
+        
+        
+def engineer_email(request,ticket_id):
+    # page = get_object_or_404(Ticket, ticket_id=ticket_id)
+    page = get_object_or_404(Message, ticket_id=ticket_id)
+    
+    if request.method == 'POST':
+        form = MessageForm(request.POST, request.FILES)
+        # if form.is_valid():
+        #     message = form.save(commit=False)
+        #     message.ticket = ticket
+        #     message.sender = request.user
+        #     message.save()
 
+        #     # Prepare email
+        #     email = EmailMessage(
+        #         subject=f"Re: [Ticket ID: {ticket.ticket_id}] {ticket.ticket_title}",
+        #         body=message.content,
+        #         from_email=request.user.email,
+        #         to=[ticket.customer.email],
+        #         reply_to=[message.reply_to] if message.reply_to else [request.user.email],
+        #     )
+            
+        #     # Attach the file if it exists
+        #     if message.attachment:
+        #         email.attach(message.attachment.name, message.attachment.read(), message.attachment.content_type)
+            
+        #     # Send the email
+        #     email.send(fail_silently=False)
+            
+        #     return JsonResponse({'status': 'success', 'message': 'Message sent successfully.'})
+        # else:
+        #     return JsonResponse({'status': 'error', 'message': 'Invalid form data.'})
+        
+    form1 =MessageForm(instance=page)
+    # form.fields['engineer'].queryset = User.objects.filter(is_engineer = True)
+    context = {'form1':form1,}
+    # tickets = Ticket.objects.all().order_by('-created_on')
+    # context = {'tickets':'tickets'}
+    return render(request,'emails/engineer_email.html',context)
+
+
+
+# @login_required
+def post_message_view(request,  ticket_id):
+    # ticket = get_object_or_404(Ticket, ticket_id=pk)
+    if ticket_id:
+        # Edit existing page
+        page = get_object_or_404(Message, ticket_id=ticket_id)
+    else:
+        # Create new page
+        page = None
+
+    if request.method == 'POST':
+        form = MessageForm(request.POST, instance=page)
+        if form.is_valid():
+            form.save()
+            return redirect('html_page_detail', ticket_id=page.ticket_id if page else form.instance.pk)
+    else:
+        form = MessageForm(instance=page)
+    
+    # if request.method == 'POST':
+    #     form = MessageForm(request.POST, request.FILES)
+    #     if form.is_valid():
+    #         message = form.save(commit=False)
+    #         message.ticket = ticket
+    #         message.sender = request.user
+    #         message.save()
+
+    #         # Prepare email
+    #         email = EmailMessage(
+    #             subject=f"Re: [Ticket ID: {ticket.ticket_id}] {ticket.ticket_title}",
+    #             body=message.content,
+    #             from_email=request.user.email,
+    #             to=[ticket.customer.email],
+    #             reply_to=[message.reply_to] if message.reply_to else [request.user.email],
+    #         )
+            
+    #         # Attach the file if it exists
+    #         if message.attachment:
+    #             email.attach(message.attachment.name, message.attachment.read(), message.attachment.content_type)
+            
+    #         # Send the email
+    #         email.send(fail_silently=False)
+            
+    #         return JsonResponse({'status': 'success', 'message': 'Message sent successfully.'})
+    #     else:
+    #         return JsonResponse({'status': 'error', 'message': 'Invalid form data.'})
+        
+    # form =MessageForm()
+    # form.fields['engineer'].queryset = User.objects.filter(is_engineer = True)
+    context = {'form':form,}
+    
+    return render(request,'emails/engineer_email.html',context)
             
     
     

@@ -53,6 +53,7 @@ cover/
 ticket/migrations/
 dashboard/migrations/
 accounts/migrations/
+static/
 
 # Translations
 *.mo
